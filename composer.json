@@ -1,0 +1,17 @@
+{
+    "name": "grohs/ggallery",
+    "autoload": {
+        "psr-4": {
+            "GGallery\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Felix Grohs",
+            "email": "53900040+felixgro@users.noreply.github.com"
+        }
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^7.3"
+    }
+}

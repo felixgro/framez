@@ -1,0 +1,34 @@
+<?php
+
+namespace GGallery\Utils;
+
+class Path
+{
+    public static function abs(string $relativePath): string {
+        $relativePath = ltrim($relativePath, '/'); // Ensure no leading slash
+        $absPath = str_replace('/', DIRECTORY_SEPARATOR, GG_PLUGIN_DIR . $relativePath);
+
+        return $absPath;
+    } 
+
+    public static function join(string ...$paths): string {
+        $joinedPath = implode(DIRECTORY_SEPARATOR, $paths);
+        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $joinedPath);
+    }
+
+
+    public static function url(string $relativePath): string {
+        $relativePath = ltrim($relativePath, '/'); // Ensure no leading slash
+        $url = GG_PLUGIN_URL . $relativePath;
+
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new \Exception("Invalid URL: " . $url);
+        }
+
+        return $url;
+    }
+
+    public static function fileName(string $filePath): string {
+        return basename($filePath);
+    }
+}

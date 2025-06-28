@@ -26,15 +26,15 @@ add_filter('ggallery_file_directories', function () {
             'path' => '/path/to/directory',
             'url' => 'https://domain.com/path/to/directory',
         ],
-        ...
+        // ...
     ];
 });
 ```
 
-Then you can render the image gallery using the `[ggallery]` shortcode:
+Now, you can render a registered image gallery using the `[ggallery]` shortcode with the related directory key:
 
 ```
-[ggallery directory="directory1" perpage="10" startpage="0" loadmore="true"]
+[ggallery directory="directory1" perpage="20" startpage="0" loadmore="true"]
 ```
 > [!NOTE]
 > `directory` is the only required attribute on this shortcode, the others have defaults which are shown in the example above

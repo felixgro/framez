@@ -10,8 +10,7 @@ export default defineConfig(() => ({
         manifest: true,
         outDir: "build",
         assetsDir: "assets",
-        sourcemap: false,
-        chunkSizeWarningLimit: 3000,
+        sourcemap: false
     },
     server: {
         port: 3000,

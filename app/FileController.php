@@ -2,6 +2,9 @@
 
 namespace GGallery;
 
+use GGallery\Utils\View;
+use WP_Error;
+
 class FileController
 {
     // /wp-json/ggallery/v1/images?page=X&perPage=X&directory=demo&raw=true
@@ -12,7 +15,7 @@ class FileController
         $plugin = Plugin::getInstance();
         $dir = $plugin->getDirectory($directoryKey);
         if (empty($dir)) {
-            return new \WP_Error('invalid_directory', 'Invalid directory specified.', ['status' => 404]);
+            return new WP_Error('invalid_directory', 'Invalid directory specified.', ['status' => 404]);
         }
 
         $paginator = new FilePaginator(
@@ -29,26 +32,16 @@ class FileController
             return $paginationRes;
         };
 
-        $output = '';
-
         if ($_GET['page'] > $paginationRes['totalPages']) {
-            return '';
+            return ''; // Return empty string to notify no more images to load
         }
 
+        $output = '';
         foreach ($paginationRes['images'] as $image) {
-            // TODO: Better implement the url min logic
-            $fileName = pathinfo($image['name'], PATHINFO_FILENAME);
-            $minUrl = wp_upload_dir()['baseurl'] . '/ggallery/' . $directoryKey . '-min/' . $fileName . '.' . pathinfo($image['name'], PATHINFO_EXTENSION);
-            $output .= '<a class="ggallery-item" href="' . $minUrl. '" data-url="' . esc_url($image['url']) . '" data-width="' . esc_attr($image['width']) . '" data-height="' . esc_attr($image['height']) . '" data-name="' . esc_attr($image['name']) . '" data-pswp-width="' . esc_attr($image['width']) . '" data-pswp-height="' . esc_attr($image['height']) . '">';
-            $output .= '<img src="' . esc_url($image['thumbnail']) . '" width="' . $image['width'] . '" height="' . $image['height'] . '" alt="' . esc_attr($image['name']) . '" />';
-            $output .= '</a>';
+            $output .= View::render('ggallery-item', [
+                'image' => $image,
+            ]);
         }
-
         return $output;
-    } 
-
-    private static function logPayload()
-    {
-        error_log(print_r($_GET, true));
     }
 }

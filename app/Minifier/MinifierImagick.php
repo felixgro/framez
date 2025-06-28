@@ -32,7 +32,7 @@ class MinifierImagick implements MinifierInterface
         $imagick->stripImage();
 
         // Set compression quality
-        $imagick->setImageCompressionQuality(85);
+        $imagick->setImageCompressionQuality(90);
 
         // Save output
         $imagick->writeImage($outputFile);

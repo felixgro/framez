@@ -8,7 +8,7 @@ class View
 
     public static function render(string $viewName, array $data = []): string
     {
-        $viewFile = Path::abs(self::$viewPath . $viewName . '.php');
+        $viewFile = Path::abs(self::$viewPath . $viewName . '.view.php');
 
         if (!file_exists($viewFile)) {
             throw new \RuntimeException("View file not found: " . $viewFile);

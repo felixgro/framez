@@ -2,10 +2,8 @@
 
 namespace GGallery\Minifier;
 
-use GGallery\Minifier\BaseMinifierInterface;
-use Imagick;
-use RuntimeException;
 use GGallery\Utils\Path;
+use RuntimeException;
 
 class Minifier
 {
@@ -27,6 +25,10 @@ class Minifier
 
         if (class_exists('Imagick')) {
             $this->baseMinifier = new MinifierImagick();
+        } else if (function_exists('imagecreatefromjpeg')) {
+            $this->baseMinifier = new MinifierGD();
+        } else {
+            throw new RuntimeException("No image processing library available. Please install Imagick or GD.");
         }
     }
 

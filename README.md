@@ -1,6 +1,6 @@
 # GGallery
 
-Simple auto-optimizing mansonry galleries for your wordpress website.
+Simple auto-optimizing masonry galleries for your wordpress website.
 
 * Lightweight, fast & easy-to-use
 * Automatic preview and thumbail generation for better performance while keeping the originals downloadable

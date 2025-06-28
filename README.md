@@ -37,4 +37,4 @@ Then you can render the image gallery using the `[ggallery]` shortcode:
 [ggallery directory="directory1" perpage="10" startpage="0" loadmore="true"]
 ```
 > [!NOTE]
-> `directory` is the only required attribute here
+> `directory` is the only required attribute on this shortcode, the others have defaults which are shown in the example above

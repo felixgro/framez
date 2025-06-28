@@ -2,8 +2,8 @@
 
 Simple auto-optimizing mansonry galleries for your wordpress website.
 
-* Lightweight, easy-to-use & fast
-* Automatic image compression & thumbail generation while keeping the originals downloadable
+* Lightweight, fast & easy-to-use
+* Automatic preview and thumbail generation for better performance while keeping the originals downloadable
 
 ## Requirements
 

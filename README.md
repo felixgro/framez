@@ -31,7 +31,7 @@ add_filter('ggallery_file_directories', function () {
 });
 ```
 
-Now, you can render a registered image gallery using the `[ggallery]` shortcode with the related directory key:
+Now, you can render an image gallery using the `[ggallery]` shortcode with the registered directory key:
 
 ```
 [ggallery directory="directory1" perpage="20" startpage="0" loadmore="true"]

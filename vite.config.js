@@ -1,41 +1,45 @@
 import { defineConfig } from "vite";
-import laravel from 'laravel-vite-plugin';
+import laravel from "laravel-vite-plugin";
 
-const DEV_ORIGIN = 'http://gum.test';
+const DEV_ORIGIN = "http://gum.test";
 
 export default defineConfig(() => ({
-    base: '',
+    base: "",
     build: {
         emptyOutDir: true,
         manifest: true,
-        outDir: 'build',
-        assetsDir: 'assets',
+        outDir: "build",
+        assetsDir: "assets",
         sourcemap: false,
-        chunkSizeWarningLimit: 3000, 
+        chunkSizeWarningLimit: 3000,
     },
     server: {
         port: 3000,
         cors: {
             origin: DEV_ORIGIN,
-            credentials: true
+            credentials: true,
         },
     },
     plugins: [
         laravel({
-            publicDirectory: 'build',
-            refresh: ['*/**.php'],
-            input: [
-                'resources/scripts/main.js',
-                'resources/styles/main.scss',
-            ]
-        })
+            publicDirectory: "build",
+            refresh: ["*/**.php"],
+            input: ["resources/scripts/main.js", "resources/styles/main.scss"],
+        }),
     ],
     resolve: {
         alias: [
             {
                 find: /~(.+)/,
-                replacement: process.cwd() + '/node_modules/$1'
+                replacement: process.cwd() + "/node_modules/$1",
             },
-        ]
-    }
+        ],
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: "modern-compiler", // or "modern"
+            },
+        },
+    },
 }));

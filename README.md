@@ -13,7 +13,7 @@ Simple auto-optimizing mansonry galleries for your wordpress website.
 
 ## Getting Started
 
-Just register all directories using the `ggallery_file_directories` hook:
+Register all directories using the `ggallery_file_directories` hook:
 
 ```php
 add_filter('ggallery_file_directories', function () {

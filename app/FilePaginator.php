@@ -3,14 +3,17 @@
 namespace GGallery;
 
 use FilesystemIterator;
-use GGallery\Utils\Minifier;
 use GGallery\Utils\Path;
+use GGallery\Minifier\Minifier;
 
 class FilePaginator
 {
     private ?int $totalPageCache = null;
 
     private Minifier $minifier;
+
+    private string $indexPath;
+    private array $indexCache = [];
 
     public function __construct(
         private string $directory,
@@ -19,12 +22,39 @@ class FilePaginator
     ) {
         $this->minifier = new Minifier(
             $directory,
-            Path::abs('storage/thumbnails/'),
-            Path::url('storage/thumbnails/')
+            Path::join(GG_STORAGE_PATH, 'thumbnails/'),
+            Path::joinUrl(GG_STORAGE_URL, 'thumbnails/'),
+            Path::join(GG_STORAGE_PATH, 'previews/'),
+            Path::joinUrl(GG_STORAGE_URL, 'previews/')
         );
 
         if (!str_ends_with($this->directoryUrl, '/')) {
             $this->directoryUrl = $this->directoryUrl . '/';
+        }
+
+        $this->ensureIndexExists();
+    }
+
+    public function ensureIndexExists()
+    {
+        $this->indexPath = Path::join(GG_DATA_PATH, md5($this->directory) . '.json');
+
+        if (!is_dir(dirname($this->indexPath))) {
+            mkdir(dirname($this->indexPath), 0755, true);
+        }
+
+        if (file_exists($this->indexPath)) {
+            $this->indexCache = json_decode(file_get_contents($this->indexPath), true);
+        } else {
+            // Create the index based on the files in the directory
+            $this->indexCache = [];
+            $files = glob($this->directory . '/*.{jpg,jpeg,png,gif,webp}', GLOB_BRACE);
+            $filenames = array_map('basename', $files);
+            natsort($filenames);
+            file_put_contents(
+                $this->indexPath,
+                json_encode($filenames, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+            );
         }
     }
 
@@ -71,43 +101,28 @@ class FilePaginator
 
     private function getImageFilesPaginated($page = 1)
     {
-        $files = [];
+        $this->ensureIndexExists();
+        $index = $this->indexCache;
         $start = ($page - 1) * $this->perPage;
-        $end = $start + $this->perPage;
+        $filenames = array_slice($index, $start, $this->perPage);
 
-        $iterator = new FilesystemIterator($this->directory, FilesystemIterator::SKIP_DOTS);
-        $i = 0;
+        $files = [];
+        foreach ($filenames as $filename) {
+            $fileinfo = new \SplFileInfo($this->directory . '/' . $filename);
+            $imageSize = getimagesize($fileinfo->getPathname());
 
-        foreach ($iterator as $fileinfo) {
-            if (!$fileinfo->isFile()) continue;
+            $thumbnailUrl = $this->minifier->ensureThumbnailExists($filename);
+            $previewUrl = $this->minifier->ensurePreviewExists($filename);
 
-            // Optionally filter image types
-            $ext = strtolower($fileinfo->getExtension());
-            if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) continue;
-
-            if ($i >= $start && $i < $end) {
-                // Get image size
-                $imageSize = getimagesize($fileinfo->getPathname());
-
-                // Ensure thumbnail exists and get its URL
-                $this->minifier->ensureThumbnailExists($fileinfo->getFilename());
-                $thumbnailUrl = $this->minifier->getThumbnailUrl($fileinfo->getFilename());
-
-                // Store file metadata in the array
-                $files[] = [
-                    'name' => $fileinfo->getFilename(),
-                    'url' => $this->directoryUrl . $fileinfo->getFilename(),
-                    'thumbnail' => $thumbnailUrl,
-                    'width' => $imageSize[0] ?? 0,
-                    'height' => $imageSize[1] ?? 0,
-                    'date' => date('d.m.Y H:i', $fileinfo->getMTime()),
-                    // 'path' => $fileinfo->getPathname(),
-                ];
-            }
-
-            if ($i >= $end) break;
-
-            $i++;
+            $files[] = [
+                'name' => $filename,
+                'url' => $this->directoryUrl . $filename,
+                'thumbnail' => $thumbnailUrl,
+                'preview' => $previewUrl,
+                'width' => $imageSize[0] ?? 0,
+                'height' => $imageSize[1] ?? 0,
+                'date' => date('d.m.Y H:i', $fileinfo->getMTime()),
+            ];
         }
 
         return $files;

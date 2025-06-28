@@ -1,4 +1,4 @@
-#ggallery {
+.ggallery {
   width: 100%;
   margin: 0 auto;
 }
@@ -7,12 +7,36 @@
     display: block;
 }
 
-#ggallery {
-    
+.pswp__button {
+  background-color: #333 !important;
+  opacity: .5 !important;
+  &[disabled] {
+    opacity: .1 !important;
+  }
+  &:hover:not([disabled]) {
+    background-color: #5a8361 !important;
+    opacity: 1 !important;
+  }
 }
 
-button.pswp__button--test-button {
-  background: #136912 !important;
-  font-size: 20px;
-  color: #fff;
+.pswp__button--arrow--next,
+.pswp__button--arrow--prev {
+  width: 70px !important; 
+}
+
+@media (max-width: 768px) {
+  .pswp__button--arrow--next,
+.pswp__button--arrow--prev {
+  width: 50px !important;
+  svg {
+    width: 32px !important;
+  }
+}
+
+}
+
+.uk-button-text {
+  &:hover {
+    color: #B59F87 !important;
+  }
 }

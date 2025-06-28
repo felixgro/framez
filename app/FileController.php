@@ -36,7 +36,10 @@ class FileController
         }
 
         foreach ($paginationRes['images'] as $image) {
-            $output .= '<a class="ggallery-item" href="' . esc_url($image['url']) . '" data-width="' . esc_attr($image['width']) . '" data-height="' . esc_attr($image['height']) . '" data-name="' . esc_attr($image['name']) . '" data-pswp-width="' . esc_attr($image['width']) . '" data-pswp-height="' . esc_attr($image['height']) . '">';
+            // TODO: Better implement the url min logic
+            $fileName = pathinfo($image['name'], PATHINFO_FILENAME);
+            $minUrl = wp_upload_dir()['baseurl'] . '/ggallery/' . $directoryKey . '-min/' . $fileName . '.' . pathinfo($image['name'], PATHINFO_EXTENSION);
+            $output .= '<a class="ggallery-item" href="' . $minUrl. '" data-url="' . esc_url($image['url']) . '" data-width="' . esc_attr($image['width']) . '" data-height="' . esc_attr($image['height']) . '" data-name="' . esc_attr($image['name']) . '" data-pswp-width="' . esc_attr($image['width']) . '" data-pswp-height="' . esc_attr($image['height']) . '">';
             $output .= '<img src="' . esc_url($image['thumbnail']) . '" width="' . $image['width'] . '" height="' . $image['height'] . '" alt="' . esc_attr($image['name']) . '" />';
             $output .= '</a>';
         }

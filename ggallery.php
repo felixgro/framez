@@ -13,11 +13,13 @@ defined('ABSPATH') or die('No access');
 // Define plugin constants
 define('GG_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('GG_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('GG_STORAGE_PATH', wp_upload_dir()['basedir'] . '/ggallery');
+define('GG_STORAGE_URL', wp_upload_dir()['baseurl'] . '/ggallery');
+define('GG_DATA_PATH', GG_STORAGE_PATH . '/data');
 define('GG_PLUGIN_VERSION', '1.0.0');
 
 // Init class autoloader
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Init plugin
-$plugin = GGallery\Plugin::getInstance();
-$plugin->registerHooks();
+GGallery\Plugin::getInstance();

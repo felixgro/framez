@@ -16,6 +16,12 @@ class Path
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $joinedPath);
     }
 
+    public static function joinUrl(string ...$paths): string {
+        $joinedPath = implode('/', array_map(function ($p) {
+            return rtrim(ltrim($p, '/'), '/'); // Ensure no slashes
+        }, $paths));
+        return $joinedPath;
+    }
 
     public static function url(string $relativePath): string {
         $relativePath = ltrim($relativePath, '/'); // Ensure no leading slash

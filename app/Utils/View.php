@@ -6,16 +6,20 @@ class View
 {
     private static string $viewPath = 'resources/views/';
 
-    public static function render(string $viewName, array $data = []): void {
-        $filePath = self::$viewPath . $viewName;
-        if (!str_ends_with($filePath, '.php')) $filePath .= '.php';
-        $filePath = Path::abs(Path::join(self::$viewPath, $filePath));
+    public static function render(string $viewName, array $data = []): string
+    {
+        $viewFile = Path::abs(self::$viewPath . $viewName . '.php');
 
-        if (!file_exists($filePath)) {
-            throw new \Exception("View file not found: " . $filePath);
+        if (!file_exists($viewFile)) {
+            throw new \RuntimeException("View file not found: " . $viewFile);
         }
 
+        // Extract data to variables
         extract($data);
-        include $filePath;
+
+        // Start output buffering
+        ob_start();
+        include $viewFile;
+        return ob_get_clean();
     }
 }

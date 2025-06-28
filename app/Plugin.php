@@ -16,6 +16,7 @@ class Plugin
     {
         if (self::$instance === null) {
             self::$instance = new self();
+            self::$instance->registerHooks();
         }
         return self::$instance;
     }

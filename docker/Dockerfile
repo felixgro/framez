@@ -49,6 +49,13 @@ RUN mkdir -p /build
 RUN zip -r /build/framez.zip . \
     -x "plugin-info.json" \
     -x "*.env"
+
+# Perform the docusaurus build
+COPY documentation/ ./documentation/
+WORKDIR /app/documentation
+RUN npm ci && npm run build
+WORKDIR /app
+
     
 
 
@@ -61,6 +68,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy built artifacts from builder stage
+COPY --from=builder /app/documentation/build /srv/http/docs
 COPY --from=builder /build/framez.zip /srv/http/framez.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
 

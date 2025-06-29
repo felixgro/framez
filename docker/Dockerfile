@@ -41,8 +41,9 @@ RUN npm run build
 # Make the plugin zip file
 RUN find . -name ".env" -exec rm -f {} \;
 RUN rm -rf /build/framez.zip
-RUN mkdir -p /build \
- && zip -r /build/framez.zip \
+RUN mkdir -p /build
+RUN find . -name ".env" -print 
+RUN zip -r /build/framez.zip \
     framez.php \
     globals.php \
     app \
@@ -53,6 +54,8 @@ RUN mkdir -p /build \
     package.json \
     composer.json \
     -x "*/.env"
+
+RUN unzip -l /build/framez.zip | grep .env || echo "No .env in zip!"
     
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim

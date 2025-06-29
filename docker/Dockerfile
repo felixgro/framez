@@ -31,7 +31,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm run build
 
 # Create build output directory and zip plugin files
-RUN mkdir -p /build && zip -r /build/my-plugin.zip .
+RUN mkdir -p /build && zip -r /build/framez.zip . -x plugin-info.json .git/\*
 
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim
@@ -41,7 +41,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy built artifacts from builder stage
-COPY --from=builder /build/my-plugin.zip /srv/http/my-plugin.zip
+COPY --from=builder /build/framez.zip /srv/http/framez.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
 
 EXPOSE 3000

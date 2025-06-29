@@ -18,6 +18,9 @@ RUN apt-get update \
 
 WORKDIR /app
 
+# OUTPUT the files in this directory to the console 
+RUN echo "Current directory contents CDDCC:" && ls -la
+
 # Install Node dependencies
 RUN npm install
 

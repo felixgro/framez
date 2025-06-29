@@ -76,7 +76,7 @@ For the development of this plugin, you need to have the following installed:
 
 ### Development Server
 
-For development, you need to have a local WordPress installation running.
+For development, you need to have a WordPress installation hosted locally.
 
 > [!TIP]
 > You can use tools like [Local by Flywheel](https://localwp.com/), [Laragon](https://laragon.org) or [DevKinsta](https://kinsta.com/devkinsta/) to set up a local WordPress environment.

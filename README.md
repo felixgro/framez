@@ -75,8 +75,7 @@ For development, you need to have a local WordPress installation running.
 > [!TIP]
 > You can use tools like [Local by Flywheel](https://localwp.com/), [Laragon](https://laragon.org) or [DevKinsta](https://kinsta.com/devkinsta/) to set up a local WordPress environment.
 
-> [!TIP]
-> You may create a symlink if the plugin is not directly in the `wp-content/plugins` directory, e.g.:
+If you want the plugin files to be in a specific different directory while developing, you may create a symlink to the `wp-content/plugins` directory of your WordPress installation.
 ```bash
 ln -s /path/to/framez /path/to/wordpress/wp-content/plugins/framez
 ```

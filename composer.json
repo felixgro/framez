@@ -1,5 +1,8 @@
 {
     "name": "felixgro/framez",
+    "description": "Image Galleries for WordPress",
+    "type": "wordpress-plugin",
+    "license": ["GPL-2.0-or-later"],
     "authors": [
         {
             "name": "Felix Grohs"

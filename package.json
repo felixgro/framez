@@ -1,24 +1,24 @@
 {
-  "name": "framez",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Felix Grohs <",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "laravel-vite-plugin": "^1.3.0",
-    "sass": "^1.70.0",
-    "vite": "^5.4.19"
-  },
-  "type": "module",
-  "dependencies": {
-    "infinite-scroll": "^5.0.0",
-    "masonry-layout": "^4.2.2",
-    "photoswipe": "^5.4.4"
-  }
+    "name": "framez",
+    "description": "Image Galleries for WordPress",
+    "version": "1.0.0",
+    "author": "Felix Grohs",
+    "license": "GPL-2.0-or-later",
+    "main": "resources/scripts/main.js",
+    "type": "module",
+    "scripts": {
+        "dev": "vite dev",
+        "build": "vite build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "laravel-vite-plugin": "^1.3.0",
+        "sass": "^1.70.0",
+        "vite": "^5.4.19"
+    },
+    "dependencies": {
+        "infinite-scroll": "^5.0.0",
+        "masonry-layout": "^4.2.2",
+        "photoswipe": "^5.4.4"
+    }
 }

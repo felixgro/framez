@@ -81,7 +81,14 @@ For development, you need to have a WordPress installation hosted locally.
 > [!TIP]
 > You can use tools like [Local by Flywheel](https://localwp.com/), [Laragon](https://laragon.org) or [DevKinsta](https://kinsta.com/devkinsta/) to set up a local WordPress environment.
 
-To start the development server, run:
+Before starting the development server, you have to configure the local wordpress url in the `vite.config.js` file as `DEV_ORIGIN`:
+```javascript
+//...
+const DEV_ORIGIN = 'http://your-local-wordpress-url.test';
+//...
+```
+
+Then, to start the development server, run:
 ```bash
 npm run dev
 ```

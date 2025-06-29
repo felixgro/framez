@@ -49,9 +49,10 @@ Now, you can render an image gallery using the `[framez]` shortcode with the reg
 ## Development
 
 For the development of this plugin, you need to have the following installed:
+
+* [All requirements mentioned above](#requirements)
 * [Node.js](https://nodejs.org/en/download/)
 * [Composer](https://getcomposer.org/download/)
-* [PHP](https://www.php.net/downloads.php) (8.0 or newer)
 * Any sort of local server running WordPress
 
 ### Installation

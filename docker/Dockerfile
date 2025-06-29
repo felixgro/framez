@@ -65,8 +65,9 @@ FROM debian:bullseye-slim
 
 RUN apt-get update \
     && apt-get install -y busybox \
-    && apt-get install -y curl \
-    && rm -rf /var/lib/apt/lists/*
+    curl
+
+RUN rm -rf /var/lib/apt/lists/*
 
 # Make sure the /srv/http directory exists, then create the .mime.types file
 RUN mkdir -p /srv/http && echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types

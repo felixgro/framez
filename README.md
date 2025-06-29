@@ -58,7 +58,7 @@ For the development of this plugin, you need to have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone TBA
+   git clone https://github.com/felixgro/framez.git
    ```
 2. Change into the plugin directory:
    ```bash

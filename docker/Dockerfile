@@ -44,6 +44,6 @@ RUN apt-get update \
 COPY --from=builder /build/my-plugin.zip /srv/http/my-plugin.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
 
-EXPOSE 80
+EXPOSE 3000
 
-CMD ["busybox", "httpd", "-f", "-p", "80", "-h", "/srv/http"]
+CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http"]

@@ -2,7 +2,7 @@
 
 Create beautiful, auto-optimizing masonry galleries on your WordPress website with ease.
 
-* Free & Open Source (MIT License)
+* Free & Open Source
 * Lightweight, fast & easy-to-use
 * Fully accessible and responsive
 * Automatic preview and thumbail generation for better performance while keeping the originals downloadable

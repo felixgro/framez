@@ -1,4 +1,4 @@
-# FrameZ – Auto-Optimizing Masonry Galleries for WordPress
+# FrameZ – Image Galleries for WordPress
 
 Create beautiful, auto-optimizing masonry galleries on your WordPress website with ease.
 

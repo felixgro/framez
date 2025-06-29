@@ -18,6 +18,12 @@ RUN apt-get update \
 
 WORKDIR /app
 
+# Install Node dependencies
+RUN npm install
+
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader
+
 # Copy only the directories and files needed
 COPY app/ ./app/
 COPY build/ ./build/
@@ -27,12 +33,6 @@ COPY composer.json .
 COPY package.json .
 COPY framez.php .
 COPY globals.php .
-
-# Install Node dependencies
-RUN npm install
-
-# Install Composer dependencies
-RUN composer install --no-dev --optimize-autoloader
 
 # Make the plugin zip file
 RUN mkdir -p /build \

@@ -75,6 +75,6 @@ COPY --from=builder /app/documentation/build /srv/http
 
 EXPOSE 3000
 
-HEALTHCHECK NONE
+HEALTHCHECK CMD true
 
 CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http", "-m", "/srv/http/.mime.types"]

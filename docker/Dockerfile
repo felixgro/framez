@@ -68,7 +68,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Make sur the /srv/http directory exists
-RUN mkdir -p /srv/http
+# RUN mkdir -p /srv/http
 
 # Create .mime.types file directly in the image
 # RUN echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types

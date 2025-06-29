@@ -1,8 +1,8 @@
 <?php
 
-namespace GGallery;
+namespace FrameZ;
 
-use GGallery\Utils\View;
+use FrameZ\Utils\View;
 
 class Shortcode
 {
@@ -20,7 +20,7 @@ class Shortcode
         $plugin = Plugin::getInstance();
         $dir = $plugin->getDirectory($attributes['directory']);
         if (empty($dir)) {
-            return '<div class="ggallery-error">Invalid directory specified.</div>';
+            return '<div class="framez-error">Invalid directory specified.</div>';
         }
 
         $fileDirectory = $dir['path'];
@@ -31,7 +31,7 @@ class Shortcode
         $paginationData = $paginator->paginate((int) $attributes['startpage']);
 
         // Render the gallery grid view
-        $output = View::render('ggallery', [
+        $output = View::render('framez', [
             'images' => $paginationData['images'],
             'directory' => $attributes['directory'],
             'loadmore' => $attributes['loadmore'],
@@ -39,7 +39,7 @@ class Shortcode
 
         // Remove images from pagination data to avoid duplication and store the pagination metadata in a script tag
         unset($paginationData['images']); 
-        $output .= '<script type="application/json" id="ggallery-data">'
+        $output .= '<script type="application/json" id="framez-data">'
             . json_encode($paginationData) . '</script>';
 
         return $output;

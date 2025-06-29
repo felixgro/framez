@@ -1,10 +1,10 @@
 <?php
 
-namespace GGallery;
+namespace FrameZ;
 
 use FilesystemIterator;
-use GGallery\Utils\Path;
-use GGallery\Minifier\Minifier;
+use FrameZ\Utils\Path;
+use FrameZ\Minifier\Minifier;
 
 class FilePaginator
 {
@@ -22,10 +22,10 @@ class FilePaginator
     ) {
         $this->minifier = new Minifier(
             $directory,
-            Path::join(GG_STORAGE_PATH, 'thumbnails/'),
-            Path::joinUrl(GG_STORAGE_URL, 'thumbnails/'),
-            Path::join(GG_STORAGE_PATH, 'previews/'),
-            Path::joinUrl(GG_STORAGE_URL, 'previews/')
+            Path::join(FZ_STORAGE_PATH, 'thumbnails/'),
+            Path::joinUrl(FZ_STORAGE_URL, 'thumbnails/'),
+            Path::join(FZ_STORAGE_PATH, 'previews/'),
+            Path::joinUrl(FZ_STORAGE_URL, 'previews/')
         );
 
         if (!str_ends_with($this->directoryUrl, '/')) {
@@ -37,7 +37,7 @@ class FilePaginator
 
     public function ensureIndexExists()
     {
-        $this->indexPath = Path::join(GG_DATA_PATH, md5($this->directory) . '.json');
+        $this->indexPath = Path::join(FZ_DATA_PATH, md5($this->directory) . '.json');
 
         if (!is_dir(dirname($this->indexPath))) {
             mkdir(dirname($this->indexPath), 0755, true);

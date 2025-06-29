@@ -1,5 +1,5 @@
 {
-  "name": "ggallery",
+  "name": "framez",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -7,7 +7,7 @@
     "build": "vite build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Felix Grohs <",
   "license": "ISC",
   "description": "",
   "devDependencies": {

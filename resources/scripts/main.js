@@ -26,25 +26,25 @@ window.addEventListener("resize", () => {
     }
 });
 
-const initGGallery = (ggallery) => {
-    const id = ggallery.getAttribute("id");
-    const loadMore = ggallery.getAttribute("data-loadmore") != "false" && ggallery.getAttribute("data-loadmore") != "0";
+const initFrameZ = (framez) => {
+    const id = framez.getAttribute("id");
+    const loadMore = framez.getAttribute("data-loadmore") != "false" && framez.getAttribute("data-loadmore") != "0";
     
     // Prepare styles for the gallery items
     const styles = document.createElement("style");
     styles.innerHTML = `
-        #${id} .ggallery-item {
+        #${id} .framez-item {
             width: ${config.itemWidth}px;
             margin-bottom: ${config.gap}px;
         }
     `;
     document.head.appendChild(styles);
 
-    const directory = ggallery.getAttribute("data-directory");
+    const directory = framez.getAttribute("data-directory");
 
     // Initialize masonry for the gallery
-    const msnry = new Masonry(ggallery, {
-        itemSelector: ".ggallery-item",
+    const msnry = new Masonry(framez, {
+        itemSelector: ".framez-item",
         columnWidth: config.itemWidth,
         gutter: config.gap,
         fitWidth: true,
@@ -52,7 +52,7 @@ const initGGallery = (ggallery) => {
 
     // Initialize infinite scroll for the gallery
     let isEmpty = false;
-    const infScroll = new InfiniteScroll(ggallery, {
+    const infScroll = new InfiniteScroll(framez, {
         path: function () {
             let pageNumber = this.loadCount + 1;
             pageNumber += 1;
@@ -60,13 +60,13 @@ const initGGallery = (ggallery) => {
             if (isEmpty || !loadMore) return null;
 
             return (
-                "/wp-json/ggallery/v1/images?page=" +
+                "/wp-json/framez/v1/images?page=" +
                 pageNumber +
                 "&directory=" +
                 directory
             );
         },
-        // append: ".ggallery-item",
+        // append: ".framez-item",
         responseBody: "json",
         history: false,
         outlayer: msnry,
@@ -118,7 +118,7 @@ const initGGallery = (ggallery) => {
             isLoading = true;
             infScroll.loadNextPage().then(() => {
                 lightbox.pswp.options.dataSource = Array.from(
-                    ggallery.querySelectorAll(".ggallery-item")
+                    framez.querySelectorAll(".framez-item")
                 );
                 lightbox.pswp.refreshSlideContent(currentSlide.index);
                 isLoading = false;
@@ -130,20 +130,20 @@ const initGGallery = (ggallery) => {
     infScroll.on("load", function (body) {
         const tmpEl = document.createElement("div");
         tmpEl.innerHTML = body;
-        const items = tmpEl.querySelectorAll(".ggallery-item");
+        const items = tmpEl.querySelectorAll(".framez-item");
         if (items.length === 0) {
             isEmpty = true;
             infScroll.destroy();
             return;
         }
         for (const item of items) {
-            ggallery.appendChild(item);
+            framez.appendChild(item);
         }
         msnry.appended(items);
     });
 
-    console.log("GGallery main.js loaded");
+    console.log("FrameZ main.js loaded");
 };
 
-const galleries = document.querySelectorAll(".ggallery");
-galleries.forEach((ggallery) => initGGallery(ggallery));
+const galleries = document.querySelectorAll(".framez");
+galleries.forEach((framez) => initFrameZ(framez));

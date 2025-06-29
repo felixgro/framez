@@ -1,5 +1,5 @@
 <a
-    class="ggallery-item"
+    class="framez-item"
     href="<?= esc_url($image['preview']); ?>"
     data-url="<?php echo esc_url($image['url']); ?>"
     data-name="<?php echo esc_attr($image['name']); ?>"

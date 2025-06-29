@@ -1,12 +1,12 @@
 <?php
 
-namespace GGallery\Utils;
+namespace FrameZ\Utils;
 
 class Path
 {
     public static function abs(string $relativePath): string {
         $relativePath = ltrim($relativePath, '/'); // Ensure no leading slash
-        $absPath = str_replace('/', DIRECTORY_SEPARATOR, GG_PLUGIN_DIR . $relativePath);
+        $absPath = str_replace('/', DIRECTORY_SEPARATOR, FZ_PLUGIN_DIR . $relativePath);
 
         return $absPath;
     } 
@@ -25,7 +25,7 @@ class Path
 
     public static function url(string $relativePath): string {
         $relativePath = ltrim($relativePath, '/'); // Ensure no leading slash
-        $url = GG_PLUGIN_URL . $relativePath;
+        $url = FZ_PLUGIN_URL . $relativePath;
 
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new \Exception("Invalid URL: " . $url);

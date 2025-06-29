@@ -1,17 +1,17 @@
 <?php
-use GGallery\Utils\View;
+use FrameZ\Utils\View;
 ?>
 
 <div 
-    id="<?= esc_attr(uniqid('ggallery-')); ?>"
-    class="ggallery"
+    id="<?= esc_attr(uniqid('framez-')); ?>"
+    class="framez"
     data-directory="<?= esc_attr($directory); ?>" 
     data-loadmore="<?= esc_attr($loadmore ?? false); ?>"
 >
 
     <?php foreach ($images as $image): ?>
 
-        <?= View::render('ggallery-item', [
+        <?= View::render('framez-item', [
             'image' => $image
         ]) ?>
 

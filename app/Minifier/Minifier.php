@@ -1,8 +1,8 @@
 <?php
 
-namespace GGallery\Minifier;
+namespace FrameZ\Minifier;
 
-use GGallery\Utils\Path;
+use FrameZ\Utils\Path;
 use RuntimeException;
 
 class Minifier

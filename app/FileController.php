@@ -1,13 +1,13 @@
 <?php
 
-namespace GGallery;
+namespace FrameZ;
 
-use GGallery\Utils\View;
+use FrameZ\Utils\View;
 use WP_Error;
 
 class FileController
 {
-    // /wp-json/ggallery/v1/images?page=X&perPage=X&directory=demo&raw=true
+    // /wp-json/framez/v1/images?page=X&perPage=X&directory=demo&raw=true
     public static function handleRequest()
     {
         $directoryKey = $_GET['directory'] ?? 'demo';
@@ -38,7 +38,7 @@ class FileController
 
         $output = '';
         foreach ($paginationRes['images'] as $image) {
-            $output .= View::render('ggallery-item', [
+            $output .= View::render('framez-item', [
                 'image' => $image,
             ]);
         }

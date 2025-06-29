@@ -1,4 +1,4 @@
-# GGallery
+# FrameZ
 
 Simple auto-optimizing masonry galleries for your wordpress website.
 
@@ -13,10 +13,10 @@ Simple auto-optimizing masonry galleries for your wordpress website.
 
 ## Getting Started
 
-Register all directories using the `ggallery_file_directories` hook:
+Register all directories using the `framez_file_directories` hook:
 
 ```php
-add_filter('ggallery_file_directories', function () {
+add_filter('framez_file_directories', function () {
     return [
         'directory1' => [
             'path' => '/path/to/directory',
@@ -31,10 +31,10 @@ add_filter('ggallery_file_directories', function () {
 });
 ```
 
-Now, you can render an image gallery using the `[ggallery]` shortcode with the registered directory key:
+Now, you can render an image gallery using the `[framez]` shortcode with the registered directory key:
 
 ```
-[ggallery directory="directory1" perpage="20" startpage="0" loadmore="true"]
+[framez directory="directory1" perpage="20" startpage="0" loadmore="true"]
 ```
 > [!NOTE]
 > `directory` is the only required attribute on this shortcode, the others have defaults which are shown in the example above

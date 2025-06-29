@@ -1,6 +1,6 @@
 <?php
 
-namespace GGallery\Utils;
+namespace FrameZ\Utils;
 
 class View
 {

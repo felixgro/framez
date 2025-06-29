@@ -1,16 +1,18 @@
 {
-    "name": "grohs/ggallery",
-    "autoload": {
-        "psr-4": {
-            "GGallery\\": "app/"
-        }
-    },
+    "name": "felixgro/framez",
     "authors": [
         {
-            "name": "Felix Grohs",
-            "email": "53900040+felixgro@users.noreply.github.com"
+            "name": "Felix Grohs"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "FrameZ\\": "app/"
+        },
+        "files": [
+            "globals.php"
+        ]
+    },
     "require-dev": {
         "symfony/var-dumper": "^7.3"
     }

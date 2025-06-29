@@ -1,6 +1,6 @@
 <?php
 
-namespace GGallery\Minifier;
+namespace FrameZ\Minifier;
 
 class MinifierGD implements MinifierInterface
 {

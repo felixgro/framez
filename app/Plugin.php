@@ -1,9 +1,9 @@
 <?php
 
-namespace GGallery;
+namespace FrameZ;
 
-use GGallery\Utils\Path;
-use GGallery\Utils\Vite;
+use FrameZ\Utils\Path;
+use FrameZ\Utils\Vite;
 
 class Plugin
 {
@@ -25,7 +25,7 @@ class Plugin
     public function registerHooks()
     {
         add_action('init', function () {
-            $this->fileDirectories = apply_filters('ggallery_file_directories', [
+            $this->fileDirectories = apply_filters('framez_file_directories', [
                 'demo' => [
                     'path' => Path::abs('resources/images/demo/'),
                     'url' => Path::url('resources/images/demo/'),
@@ -34,20 +34,20 @@ class Plugin
         });
 
         add_action('rest_api_init', function () {
-            // /wp-json/ggallery/v1/images?page=X&perPage=X
-            register_rest_route('ggallery/v1', '/images', array(
+            // /wp-json/framez/v1/images?page=X&perPage=X
+            register_rest_route('framez/v1', '/images', array(
                 'methods' => 'GET',
                 'callback' => [FileController::class, 'handleRequest'],
             ));
         });
 
-        add_shortcode('ggallery', [Shortcode::class, 'render']);
+        add_shortcode('framez', [Shortcode::class, 'render']);
 
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', function () {
             Vite::enqueueMainModule();
-            Vite::enqueueScript('ggallery', Vite::asset('resources/scripts/main.js'));
-            Vite::enqueueStyle('ggallery', Vite::asset('resources/styles/main.scss'));
+            Vite::enqueueScript('framez', Vite::asset('resources/scripts/main.js'));
+            Vite::enqueueStyle('framez', Vite::asset('resources/styles/main.scss'));
         });
     }
 

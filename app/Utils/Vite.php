@@ -1,6 +1,6 @@
 <?php
 
-namespace GGallery\Utils;
+namespace FrameZ\Utils;
 
 use Exception;
 
@@ -169,7 +169,7 @@ class Vite {
             throw new Exception('Unknown Vite build asset: ' . $asset);
         }
 
-        return implode('/', [GG_PLUGIN_URL, '/' , static::$buildPath, static::$manifest[$asset]['file']]);
+        return implode('/', [FZ_PLUGIN_URL, '/' , static::$buildPath, static::$manifest[$asset]['file']]);
     }
 
     /**

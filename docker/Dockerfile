@@ -40,7 +40,6 @@ RUN mkdir -p /build \
 FROM debian:bullseye-slim
 
 RUN apt-get update \
-    # install curl
     && apt-get install -y curl \
     && apt-get install -y busybox \
     && rm -rf /var/lib/apt/lists/*

@@ -6,6 +6,8 @@ Version: 1.0.0
 Author: Felix Grohs
 Author URI: https://www.komplizinnen.at/
 Text Domain: framez
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined('ABSPATH') or die('No access');

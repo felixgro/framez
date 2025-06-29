@@ -52,6 +52,7 @@ For the development of this plugin, you need to have the following installed:
 * [Node.js](https://nodejs.org/en/download/)
 * [Composer](https://getcomposer.org/download/)
 * [PHP](https://www.php.net/downloads.php) (8.0 or newer)
+* Any sort of local server running a WordPress installation
 
 ### Installation
 

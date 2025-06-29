@@ -71,7 +71,7 @@ RUN apt-get update \
 RUN mkdir -p /srv/http
 
 # Create .mime.types file directly in the image
-RUN echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types
+# RUN echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types
 
 # Copy built artifacts from builder stage
 COPY --from=builder /build/framez.zip /srv/http/framez.zip

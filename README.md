@@ -81,11 +81,6 @@ For development, you need to have a WordPress installation hosted locally.
 > [!TIP]
 > You can use tools like [Local by Flywheel](https://localwp.com/), [Laragon](https://laragon.org) or [DevKinsta](https://kinsta.com/devkinsta/) to set up a local WordPress environment.
 
-If you want the plugin files to be in a specific different directory while developing, you may create a symlink to the `wp-content/plugins` directory of your WordPress installation:
-```bash
-ln -s /path/to/framez /path/to/wordpress/wp-content/plugins/framez
-```
-
 To start the development server, run:
 ```bash
 npm run dev
@@ -95,6 +90,9 @@ This will start a [Vite](https://vite.dev/) development server that serves the a
 
 > [!NOTE]
 > The Vite development server will ONLY host the hmr assets, you still need to have a local WordPress installation running to see the plugin in action. Hot module replacement will automatically update the assets in your browser when you make changes to the source files.
+
+>[!TIP]
+> If you want the plugin files to be in a specific different directory while developing, you may create a symlink to the `wp-content/plugins` directory of your WordPress installation.
 
 
 

@@ -9,17 +9,19 @@ RUN apt-get update \
         php-mbstring \
         php-json \
         php-curl \
-        unzip \
         zip \
         git \
         curl \
         bash \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Prepare the build process in the /app directory
 WORKDIR /app
 
 COPY app/ ./app/
 COPY resources/ ./resources/
+COPY LICENSE.txt .
+COPY README.md .
 COPY framez.php .
 COPY globals.php .
 COPY package.json .
@@ -37,6 +39,9 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Generate a fresh build
 RUN npm run build
+
+# Remove development dependencies from node_modules
+RUN npm prune --omit=dev
 
 # Make the plugin zip file
 RUN mkdir -p /build

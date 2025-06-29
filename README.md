@@ -10,7 +10,7 @@ Create beautiful, auto-optimizing masonry galleries on your WordPress website wi
 ## Requirements
 
 * PHP 8 or newer
-* Imagick (preferred) or GD PHP Extension
+* Imagick (recommended) or GD PHP Extension
 * WP 6.7 or newer
 
 ## Getting Started

@@ -1,9 +1,10 @@
-# FrameZ
+# FrameZ – Auto-Optimizing Masonry Galleries for WordPress
 
-Simple auto-optimizing masonry galleries for your wordpress website.
+Create beautiful, auto-optimizing masonry galleries on your WordPress website with ease.
 
 * Free & Open Source (MIT License)
 * Lightweight, fast & easy-to-use
+* Fully accessible and responsive
 * Automatic preview and thumbail generation for better performance while keeping the originals downloadable
 
 ## Requirements
@@ -69,9 +70,12 @@ For the development of this plugin, you need to have the following installed:
 
 ### Development Server
 
-For development, please host the plugin in a local WordPress installation, e.g. using [Laragon](https://laragon.org/).
+For development, you need to have a local WordPress installation running.
 
-> [!HINT]
+> [!TIP]
+> You can use tools like [Local by Flywheel](https://localwp.com/), [Laragon](https://laragon.org) or [DevKinsta](https://kinsta.com/devkinsta/) to set up a local WordPress environment.
+
+> [!TIP]
 > You may create a symlink if the plugin is not directly in the `wp-content/plugins` directory, e.g.:
 ```bash
 ln -s /path/to/framez /path/to/wordpress/wp-content/plugins/framez
@@ -84,7 +88,7 @@ npm run dev
 
 This will start a [Vite](https://vite.dev/) development server that serves the assets with hot module replacement (hmr) in your local hosted WordPress installation.
 
-> [!HINT]
+> [!NOTE]
 > The Vite development server will ONLY host the hmr assets, you still need to have a local WordPress installation running to see the plugin in action. Hot module replacement will automatically update the assets in your browser when you make changes to the source files.
 
 

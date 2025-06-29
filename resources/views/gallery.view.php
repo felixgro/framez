@@ -11,7 +11,7 @@ use FrameZ\Utils\View;
 
     <?php foreach ($images as $image): ?>
 
-        <?= View::render('framez-item', [
+        <?= View::render('gallery-item', [
             'image' => $image
         ]) ?>
 

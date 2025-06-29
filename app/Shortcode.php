@@ -31,7 +31,7 @@ class Shortcode
         $paginationData = $paginator->paginate((int) $attributes['startpage']);
 
         // Render the gallery grid view
-        $output = View::render('framez', [
+        $output = View::render('gallery', [
             'images' => $paginationData['images'],
             'directory' => $attributes['directory'],
             'loadmore' => $attributes['loadmore'],

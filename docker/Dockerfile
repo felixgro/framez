@@ -31,7 +31,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm run build
 
 # Create build output directory and zip plugin files
-RUN mkdir -p /build && zip -r /build/framez.zip . -x plugin-info.json .git/\*
+RUN mkdir -p /build && zip -r /build/framez.zip . -x plugin-info.json docker-compose.yaml .env .docker/\* .git/\*
 
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim

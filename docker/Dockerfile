@@ -68,9 +68,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy built artifacts from builder stage
-COPY --from=builder /app/documentation/build /srv/http/docs
 COPY --from=builder /build/framez.zip /srv/http/framez.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
+COPY --from=builder /app/documentation/build /srv/http
 
 EXPOSE 3000
 

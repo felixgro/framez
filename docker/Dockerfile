@@ -1,19 +1,19 @@
 # Stage 1: Build dependencies and assets
-FROM node:18-alpine AS builder
+FROM node:18-bullseye AS builder
 
-# Install Composer and PHP
-RUN apk add --no-cache \
-    curl \
-    php8 \
-    php8-phar \
-    php8-openssl \
-    php8-json \
-    php8-mbstring \
-    php8-tokenizer \
-    git \
-    unzip \
-    bash \
-    && curl -sS https://getcomposer.org/installer | php8 -- --install-dir=/usr/local/bin --filename=composer
+# Install PHP and Composer
+RUN apt-get update \
+    && apt-get install -y \
+        php-cli \
+        php-zip \
+        php-mbstring \
+        php-json \
+        php-curl \
+        unzip \
+        git \
+        curl \
+        bash \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Set work directory
 WORKDIR /app
@@ -30,22 +30,23 @@ RUN composer install --no-dev --optimize-autoloader
 # Build plugin assets
 RUN npm run build
 
-# Create the zip archive of your plugin folder (assuming your plugin code is in ./src)
-RUN apk add zip
+# Create the zip archive
 RUN zip -r /build/my-plugin.zip src
 
 # Stage 2: Minimal HTTP server
-FROM alpine:latest
+FROM debian:bullseye-slim
 
-# Install a minimal HTTP server
-RUN apk add --no-cache busybox-extras
+# Install a minimal HTTP server (or use Caddy if you prefer)
+RUN apt-get update \
+    && apt-get install -y busybox \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy build artifacts
 COPY --from=builder /build/my-plugin.zip /srv/http/my-plugin.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
 
-# Expose port 80
+# Expose port
 EXPOSE 80
 
-# Start HTTP server (Coolify will reverse proxy it)
-CMD ["httpd", "-f", "-p", "80", "-h", "/srv/http"]
+# Start HTTP server
+CMD ["busybox", "httpd", "-f", "-p", "80", "-h", "/srv/http"]

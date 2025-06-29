@@ -1,5 +1,5 @@
 # Stage 1: Build dependencies and assets
-FROM node:18-bullseye AS builder
+FROM node:20-alpine AS builder
 
 # Install PHP, Composer, zip, and tools
 RUN apt-get update \
@@ -47,13 +47,16 @@ RUN npm prune --omit=dev
 # Zip the plugin files
 RUN mkdir -p /build
 RUN zip -r /build/framez.zip . \
-    -x "plugin-info.json"
+    -x "plugin-info.json" \
+    -x "*.env"
     
+
+
+
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim
 
 RUN apt-get update \
-    && apt-get install -y curl \
     && apt-get install -y busybox \
     && rm -rf /var/lib/apt/lists/*
 

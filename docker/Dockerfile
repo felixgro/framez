@@ -39,6 +39,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm run build
 
 # Make the plugin zip file
+RUN find . -name ".env" -exec rm -f {} \; \
 RUN mkdir -p /build \
  && zip -r /build/framez.zip \
     framez.php \

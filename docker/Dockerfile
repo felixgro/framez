@@ -1,5 +1,5 @@
 # Stage 1: Build dependencies and assets
-FROM node:20-alpine AS builder
+FROM node:20-bullseye AS builder
 
 # Install PHP, Composer, zip, and tools
 RUN apt-get update \

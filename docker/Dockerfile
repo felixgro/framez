@@ -73,9 +73,6 @@ COPY --from=builder /build/framez.zip /srv/http/framez.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
 COPY --from=builder /app/documentation/build /srv/http
 
-HEALTHCHECK --interval=10s --timeout=2s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:3000/ || exit 1
-
 EXPOSE 3000
 
 CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http", "-m", "/srv/http/.mime.types"]

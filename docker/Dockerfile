@@ -29,12 +29,15 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Make the plugin zip file
 RUN mkdir -p /build \
- && zip -r /build/framez.zip . \
-    -x "./plugin-info.json" \
-    -x "./docker-compose.yaml" \
-    -x "./.env" \
-    -x "./.docker/*" \
-    -x "./.git/*"
+ && find . \
+     -type f \
+     ! -path './plugin-info.json' \
+     ! -path './docker-compose.yaml' \
+     ! -path './.env' \
+     ! -path './.docker/*' \
+     ! -path './.git/*' \
+     -print \
+ | zip -@ /build/framez.zip
 
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim

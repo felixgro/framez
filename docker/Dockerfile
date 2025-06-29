@@ -49,7 +49,8 @@ RUN mkdir -p /build \
     vendor \
     node_modules \
     package.json \
-    composer.json
+    composer.json \
+    -x "*/.env"
     
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim

@@ -16,8 +16,6 @@ RUN apt-get update \
         bash \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-
-
 WORKDIR /app
 
 COPY app/ ./app/
@@ -43,7 +41,15 @@ RUN npm run build
 # Make the plugin zip file
 RUN mkdir -p /build \
  && zip -r /build/framez.zip \
-    framez.php
+    framez.php \
+    globals.php \
+    app \
+    resources \
+    public \
+    vendor \
+    node_modules \
+    package.json \
+    composer.json
     
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim

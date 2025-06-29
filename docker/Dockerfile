@@ -24,6 +24,9 @@ RUN npm install
 # Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Generate a fresh build
+RUN npm run build
+
 # Copy only the directories and files needed
 COPY app/ ./app/
 COPY build/ ./build/

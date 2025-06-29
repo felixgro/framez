@@ -45,7 +45,8 @@ RUN npm prune --omit=dev
 
 # Make the plugin zip file
 RUN mkdir -p /build
-RUN zip -r /build/framez.zip .
+RUN zip -r /build/framez.zip . \
+    -x "plugin-info.json"
     
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim

@@ -1,13 +1,14 @@
 <?php
 /*
 Plugin Name: FrameZ
-Description: Image Gallery Plugin for WordPress
+Description: Image Gallery Plugin for WordPress.
 Version: 1.0.0
 Author: Felix Grohs
-Author URI: https://www.komplizinnen.at/
-Text Domain: framez
-License: GPLv2 or later
+Author URI: https://felixgrohs.com/
+Plugin URI: https://framez-wp.at/
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv2 or later
+Text Domain: framez
 */
 
 defined('ABSPATH') or die('No access');
@@ -25,4 +26,3 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 // Init plugin
 framez();
-

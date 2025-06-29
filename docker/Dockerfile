@@ -64,17 +64,17 @@ WORKDIR /app
 FROM debian:bullseye-slim
 
 RUN apt-get update \
-    && apt-get install -y busybox \
-    curl
+    && apt-get install -y busybox curl \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN rm -rf /var/lib/apt/lists/*
-
-# Make sure the /srv/http directory exists, then create the .mime.types file
 RUN mkdir -p /srv/http && echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types
 
 COPY --from=builder /build/framez.zip /srv/http/framez.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
 COPY --from=builder /app/documentation/build /srv/http
+
+HEALTHCHECK --interval=10s --timeout=2s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:3000/ || exit 1
 
 EXPOSE 3000
 

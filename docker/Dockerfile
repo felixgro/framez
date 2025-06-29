@@ -26,6 +26,7 @@ COPY package.json .
 COPY package-lock.json .
 COPY composer.json .
 COPY composer.lock .
+COPY vite.config.js .
 
 # Install Node dependencies
 RUN npm install

@@ -77,4 +77,4 @@ EXPOSE 3000
 
 HEALTHCHECK CMD true
 
-CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http"]
+CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http", "-m", "/srv/http/mime.types"]

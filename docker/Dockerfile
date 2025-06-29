@@ -1,7 +1,7 @@
 # Stage 1: Build dependencies and assets
 FROM node:18-bullseye AS builder
 
-# Install PHP and Composer
+# Install PHP, Composer, and zip
 RUN apt-get update \
     && apt-get install -y \
         php-cli \
@@ -10,6 +10,7 @@ RUN apt-get update \
         php-json \
         php-curl \
         unzip \
+        zip \
         git \
         curl \
         bash \
@@ -30,13 +31,13 @@ RUN composer install --no-dev --optimize-autoloader
 # Build plugin assets
 RUN npm run build
 
-# Create the zip archive
+# Create the zip archive (adjust 'src' if needed)
 RUN zip -r /build/my-plugin.zip src
 
 # Stage 2: Minimal HTTP server
 FROM debian:bullseye-slim
 
-# Install a minimal HTTP server (or use Caddy if you prefer)
+# Install a minimal HTTP server
 RUN apt-get update \
     && apt-get install -y busybox \
     && rm -rf /var/lib/apt/lists/*

@@ -22,11 +22,11 @@ WORKDIR /app
 COPY app/ ./app/
 COPY build/ ./build/
 COPY node_modules/ ./node_modules/
-COPY public/ ./public/
+COPY vendor/ ./vendor/
 COPY composer.json .
 COPY package.json .
 COPY framez.php .
-COPY index.php .
+COPY globals.php .
 
 # Install Node dependencies
 RUN npm install
@@ -37,16 +37,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Make the plugin zip file
 RUN mkdir -p /build \
  && zip -r /build/framez.zip \
-    app \
-    build \
-    node_modules \
-    vendor \
-    public \
-    package.json \
-    composer.json \
-    framez.php \
-    index.php
-
+    framez.php
+    
 # Stage 2: Minimal HTTP server for hosting zip and plugin-info.json
 FROM debian:bullseye-slim
 

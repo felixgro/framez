@@ -67,18 +67,13 @@ RUN apt-get update \
     && apt-get install -y busybox \
     && rm -rf /var/lib/apt/lists/*
 
-# Make sur the /srv/http directory exists
-# RUN mkdir -p /srv/http
+# Make sure the /srv/http directory exists, then create the .mime.types file
+RUN mkdir -p /srv/http && echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types
 
-# Create .mime.types file directly in the image
-# RUN echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types
-
-# Copy built artifacts from builder stage
 COPY --from=builder /build/framez.zip /srv/http/framez.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
 COPY --from=builder /app/documentation/build /srv/http
 
 EXPOSE 3000
 
-# Use the .mime.types file for BusyBox httpd
 CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http", "-m", "/srv/http/.mime.types"]

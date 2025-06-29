@@ -67,9 +67,7 @@ RUN apt-get update \
     && apt-get install -y busybox curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /srv/http 
-
-RUN printf "image/svg+xml svg svgz\nimage/png png\nimage/jpeg jpeg jpg\ntext/css css\ntext/html html htm\n" > /srv/http/mime.types
+RUN mkdir -p /srv/http && echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types
 
 COPY --from=builder /build/framez.zip /srv/http/framez.zip
 COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
@@ -79,4 +77,4 @@ EXPOSE 3000
 
 HEALTHCHECK CMD true
 
-CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http", "-m", "/srv/http/mime.types"]
+CMD ["httpd", "-f", "-p", "3000", "-h", "/srv/http"]

@@ -1,7 +1,7 @@
 # Docker
 Build the Docker image for the Framez project:
 ```
-docker build -f docker/Dockerfile -t test-image .
+docker build -f docker/Dockerfile -t test-image . --no-cache
 ```
 Run the Docker container:
 ```

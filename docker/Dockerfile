@@ -32,7 +32,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm run build
 
 # Create the zip archive (adjust 'src' if needed)
-RUN zip -r /build/my-plugin.zip src
+RUN zip -r /build/my-plugin.zip .
 
 # Stage 2: Minimal HTTP server
 FROM debian:bullseye-slim

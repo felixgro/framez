@@ -65,6 +65,7 @@ FROM debian:bullseye-slim
 
 RUN apt-get update \
     && apt-get install -y busybox \
+    && apt-get install -y curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Make sure the /srv/http directory exists, then create the .mime.types file

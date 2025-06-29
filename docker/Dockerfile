@@ -18,6 +18,7 @@ RUN apt-get update \
 # Prepare the build process in the /app directory
 WORKDIR /app
 
+# Copy all necessary files into the /app directory
 COPY app/ ./app/
 COPY resources/ ./resources/
 COPY LICENSE.txt .
@@ -31,7 +32,7 @@ COPY composer.lock .
 COPY vite.config.js .
 COPY plugin-info.json .
 
-# Install Node dependencies
+# Install NPM dependencies
 RUN npm install
 
 # Install Composer dependencies
@@ -43,7 +44,7 @@ RUN npm run build
 # Remove development dependencies from node_modules
 RUN npm prune --omit=dev
 
-# Make the plugin zip file
+# Zip the plugin files
 RUN mkdir -p /build
 RUN zip -r /build/framez.zip . \
     -x "plugin-info.json"

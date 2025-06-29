@@ -94,5 +94,15 @@ This will start a [Vite](https://vite.dev/) development server that serves the a
 >[!TIP]
 > If you want the plugin files to be in a specific different directory while developing, you may create a symlink to the `wp-content/plugins` directory of your WordPress installation.
 
+## Building for Production
+
+To build the plugin for production, run:
+```bash
+npm run build
+```
+
+## Contributions
+
+Contributions are welcome! If you have any ideas, suggestions or issues, feel free to open an issue or a pull request on GitHub.
 
 

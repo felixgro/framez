@@ -18,8 +18,15 @@ RUN apt-get update \
 
 WORKDIR /app
 
-# Copy all files to container
-COPY . .
+# Copy only the directories and files needed
+COPY app/ ./app/
+COPY build/ ./build/
+COPY node_modules/ ./node_modules/
+COPY public/ ./public/
+COPY composer.json .
+COPY package.json .
+COPY framez.php .
+COPY index.php .
 
 # Install Node dependencies
 RUN npm install

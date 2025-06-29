@@ -25,7 +25,7 @@ class Plugin
     public function registerHooks()
     {
         add_action('init', function () {
-            $this->fileDirectories = apply_filters('framez_file_directories', [
+            $this->fileDirectories = apply_filters('framez_directories', [
                 'demo' => [
                     'path' => Path::abs('resources/images/demo/'),
                     'url' => Path::url('resources/images/demo/'),

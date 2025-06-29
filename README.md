@@ -14,10 +14,10 @@ Simple auto-optimizing masonry galleries for your wordpress website.
 
 ## Getting Started
 
-Register all directories using the `framez_file_directories` hook:
+Register all directories using the `framez_directories` hook:
 
 ```php
-add_filter('framez_file_directories', function () {
+add_filter('framez_directories', function () {
     return [
         'directory1' => [
             'path' => '/path/to/directory',

@@ -10,8 +10,8 @@ Create beautiful, auto-optimizing masonry galleries on your WordPress website wi
 ## Requirements
 
 * PHP 8 or newer
-* Imagick (recommended) or GD PHP Extension
 * WP 6.7 or newer
+* Imagick (recommended) or GD PHP Extension
 
 ## Getting Started
 
@@ -51,7 +51,7 @@ Now, you can render an image gallery using the `[framez]` shortcode with the reg
 For the development of this plugin, you need to have the following installed:
 
 * [All requirements mentioned above](#requirements)
-* [Node.js](https://nodejs.org/en/download/)
+* [Node.js v24 or newer](https://nodejs.org/en/download/)
 * [Composer](https://getcomposer.org/download/)
 * Any local server running WordPress
 

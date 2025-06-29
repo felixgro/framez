@@ -31,14 +31,12 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm run build
 
 # Copy only the directories and files needed
-COPY app/ ./app/
-COPY build/ ./build/
-COPY node_modules/ ./node_modules/
-COPY vendor/ ./vendor/
-COPY composer.json .
-COPY package.json .
+#COPY app/ ./app/
+#COPY build/ ./build/
+#COPY node_modules/ ./node_modules/
+# COPY vendor/ ./vendor/
 COPY framez.php .
-COPY globals.php .
+#COPY globals.php .
 
 # Make the plugin zip file
 RUN mkdir -p /build \

@@ -16,6 +16,8 @@ RUN apt-get update \
         bash \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+
+
 WORKDIR /app
 
 COPY app/ ./app/
@@ -27,6 +29,7 @@ COPY package-lock.json .
 COPY composer.json .
 COPY composer.lock .
 COPY vite.config.js .
+COPY plugin-info.json .
 
 # Install Node dependencies
 RUN npm install

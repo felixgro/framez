@@ -56,6 +56,7 @@ COPY --from=builder /documentation/build /srv/http
 
 EXPOSE 3000
 
-HEALTHCHECK CMD true
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s \
+    CMD curl -f http://localhost:3000 || exit 1
 
 CMD ["busybox", "httpd", "-f", "-p", "3000", "-h", "/srv/http"]

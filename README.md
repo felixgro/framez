@@ -104,25 +104,30 @@ This will start a [Vite](https://vite.dev/) development server that serves the a
 
 ### Building for Production
 
-This project uses docker to build the plugin package for distribution as well as publishing the documentation website.
+This project uses Docker to build the plugin package for distribution, as well as to publish the documentation website.
 
-First, make sure you have [Docker](https://www.docker.com/get-started) installed and running on your machine.
+#### Prerequisites
 
-Then, you can build an image with the following command:
+Make sure you have [Docker](https://www.docker.com/get-started) installed and running on your machine.
+
+#### Build the Docker Image & Run the Container
+
+To build the image, run the following command in your project root:
 
 ```bash
 docker build -f docker/Dockerfile -t framez . --no-cache
 ```
 
-At last, run the Docker container:
+Then, start the container using the `framez` image we've just built:
 
 ```bash
 docker run --rm -p 3000:3000 framez
 ```
 
-Now you can access the plugin files in the `/srv/http` directory of the container, which will be served on `http://localhost:3000` of your host machine.
+Now, the plugin is available in the `/srv/http` directory inside the container, and will be served at `http://localhost:3000` on your host machine. You may download the freshly baked `framez.zip` plugin package directly from `http://localhost:3000/framez.zip`. 
 
-If port `3000` is already in use, you can change the port mapping in the `docker run` command to any other available port, e.g. `-p 8080:3000`.
+>[!TIP]
+> If port `3000` is already in use, you can change the port mapping in the `docker run` command to any other available port, e.g. `-p 8080:3000`
 
 ### Contributions
 

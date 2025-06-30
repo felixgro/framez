@@ -63,7 +63,7 @@ For the development of this plugin, you need to have the following installed:
    ```
 2. Change into the plugin directory:
    ```bash
-    cd framez
+    cd framez/plugin
     ```
 3. Install dependencies:
     ```bash
@@ -104,10 +104,25 @@ This will start a [Vite](https://vite.dev/) development server that serves the a
 
 ### Building for Production
 
-To build the plugin for production, run:
+This project uses docker to build the plugin package for distribution as well as publishing the documentation website.
+
+First, make sure you have [Docker](https://www.docker.com/get-started) installed and running on your machine.
+
+Then, you can build an image with the following command:
+
 ```bash
-npm run build
+docker build -f docker/Dockerfile -t framez . --no-cache
 ```
+
+At last, run the Docker container:
+
+```bash
+docker run --rm -p 3000:3000 framez
+```
+
+Now you can access the plugin files in the `/srv/http` directory of the container, which will be served on `http://localhost:3000` of your host machine.
+
+If port `3000` is already in use, you can change the port mapping in the `docker run` command to any other available port, e.g. `-p 8080:3000`.
 
 ### Contributions
 

@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "FrameZ\\": "app/"
+            "FrameZ\\": "src/"
         },
         "files": [
             "globals.php"

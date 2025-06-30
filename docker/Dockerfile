@@ -5,32 +5,14 @@ FROM node:20-bullseye AS builder
 RUN apt-get update \
     && apt-get install -y \
         php-cli \
-        php-zip \
-        php-mbstring \
-        php-json \
-        php-curl \
         zip \
         git \
         curl \
-        bash \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Prepare the build process in the /app directory
+# Prepare the build process in the /plugin directory
 WORKDIR /app
-
-# Copy all necessary files into the /app directory
-COPY app/ ./app/
-COPY resources/ ./resources/
-COPY LICENSE.txt .
-COPY README.md .
-COPY framez.php .
-COPY globals.php .
-COPY package.json .
-COPY package-lock.json .
-COPY composer.json .
-COPY composer.lock .
-COPY vite.config.js .
-COPY plugin-info.json .
+COPY plugin/ .
 
 # Install NPM dependencies
 RUN npm install
@@ -50,12 +32,13 @@ RUN zip -r /build/framez.zip . \
     -x "plugin-info.json" \
     -x "*.env"
 
-# Perform the docusaurus build
-COPY documentation/ ./documentation/
-WORKDIR /app/documentation
-RUN npm ci && npm run build
-WORKDIR /app
+# Copy the plugin-info.json file to the build directory
+COPY plugin-info.json /build/plugin-info.json
 
+# Perform the docusaurus build
+WORKDIR /documentation
+COPY documentation/ .
+RUN npm ci && npm run build
     
 
 
@@ -67,11 +50,9 @@ RUN apt-get update \
     && apt-get install -y busybox curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /srv/http && echo 'image/svg+xml    svg svgz' > /srv/http/.mime.types
-
 COPY --from=builder /build/framez.zip /srv/http/framez.zip
-COPY --from=builder /app/plugin-info.json /srv/http/plugin-info.json
-COPY --from=builder /app/documentation/build /srv/http
+COPY --from=builder /build/plugin-info.json /srv/http/plugin-info.json
+COPY --from=builder /documentation/build /srv/http
 
 EXPOSE 3000
 

@@ -15,16 +15,16 @@ Create beautiful, auto-optimizing masonry galleries on your WordPress website wi
 
 ## Getting Started
 
-Register all directories using the `framez_directories` hook:
+Register all directories using the `framez_galleries` hook:
 
 ```php
-add_filter('framez_directories', function () {
+add_filter('framez_galleries', function ($galleries) {
     return [
-        'directory1' => [
+        'my-gallery-1' => [
             'path' => '/path/to/directory',
             'url' => 'https://domain.com/path/to/directory',
         ],
-        'directory2' => [
+        'my-gallery-2' => [
             'path' => '/path/to/directory',
             'url' => 'https://domain.com/path/to/directory',
         ],
@@ -36,10 +36,10 @@ add_filter('framez_directories', function () {
 Now, you can render an image gallery using the `[framez]` shortcode with the registered directory key:
 
 ```
-[framez directory="directory1" perpage="20" startpage="0" loadmore="true"]
+[framez gallery="my-gallery-1" perpage="20" startpage="0" loadmore="true"]
 ```
 > [!NOTE]
-> `directory` is the only required attribute on this shortcode, the others have defaults which are shown in the example above
+> `gallery` is the only required attribute on this shortcode, the others have defaults which are shown in the example above
 
 ## Roadmap
 * [ ] Add support for custom storage locations (custom server directory)

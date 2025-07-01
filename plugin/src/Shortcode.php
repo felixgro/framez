@@ -10,7 +10,7 @@ class Shortcode
     {
         // Default attributes
         $attributes = shortcode_atts([
-            'directory' => 'demo',
+            'gallery' => 'demo',
             'perpage' => 20,
             'startpage' => 0,
             'loadmore' => true,

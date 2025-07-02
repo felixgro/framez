@@ -7,25 +7,48 @@ use FrameZ\Utils\Vite;
 
 class Plugin
 {
-    public array $fileDirectories;
+    private array $galleries;
 
-    // Singleton instance handling
+    /**
+     * Associative array of models used in the plugin.
+     */
+    private array $models = [
+        'gallery' => \FrameZ\Models\Gallery::class,
+        'settings' => \FrameZ\Models\Settings::class,
+    ];
+
+    /**
+     * Singleton instance handling.
+     */
     private static $instance = null;
     private function __construct() {}
     public static function getInstance()
     {
         if (self::$instance === null) {
             self::$instance = new self();
-            self::$instance->registerHooks();
+            self::$instance->bootstrap();
         }
         return self::$instance;
     }
 
-    // Register wp hooks for the plugin
-    public function registerHooks()
+    /**
+     * Register all hooks and filters for the plugin.
+     */
+    public function bootstrap()
     {
+        // Register all models
+        foreach ($this->models as $modelKey => $model) {
+            if (!class_exists($model)) {
+                throw new \Exception("Model class {$model} does not exist.");
+            }
+            $instance = new $model();
+            if (method_exists($instance, 'register')) $instance->register();
+            $this->models[$modelKey] = $instance;
+        }
+
+        // Load custom galleries
         add_action('init', function () {
-            $this->fileDirectories = apply_filters('framez_galleries', [
+            $this->galleries = apply_filters('framez_galleries', [
                 'demo' => [
                     'path' => Path::abs('resources/images/demo/'),
                     'url' => Path::url('resources/images/demo/'),
@@ -33,29 +56,39 @@ class Plugin
             ]);
         });
 
+        // /wp-json/framez/v1/images?page=X&perPage=X
         add_action('rest_api_init', function () {
-            // /wp-json/framez/v1/images?page=X&perPage=X
             register_rest_route('framez/v1', '/images', array(
                 'methods' => 'GET',
                 'callback' => [FileController::class, 'handleRequest'],
             ));
         });
 
+        // Register the shortcode
         add_shortcode('framez', [Shortcode::class, 'render']);
 
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', function () {
+            global $post;
+
+            if (!has_shortcode($post->post_content, 'framez'))
+                return;
+
             Vite::enqueueMainModule();
             Vite::enqueueScript('framez', Vite::asset('resources/scripts/main.js'));
             Vite::enqueueStyle('framez', Vite::asset('resources/styles/main.scss'));
         });
     }
 
-    public function getDirectory(string $key)
+
+    /**
+     * Get the directory path and URL for a given key.
+     */
+    public function getGallery(string $key)
     {
-        if (!isset($this->fileDirectories[$key])) {
+        if (!isset($this->galleries[$key])) {
             return null;
         }
-        return $this->fileDirectories[$key];
+        return $this->galleries[$key];
     }
 }

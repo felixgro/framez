@@ -18,7 +18,7 @@ class Shortcode
 
         // Get the plugin instance to access file directory and URL
         $plugin = Plugin::getInstance();
-        $dir = $plugin->getDirectory($attributes['directory']);
+        $dir = $plugin->getGallery($attributes['gallery']);
         if (empty($dir)) {
             return '<div class="framez-error">Invalid directory specified.</div>';
         }

@@ -13,7 +13,7 @@ class FileController
         $directoryKey = $_GET['directory'] ?? 'demo';
 
         $plugin = Plugin::getInstance();
-        $dir = $plugin->getDirectory($directoryKey);
+        $dir = $plugin->getGallery($directoryKey);
         if (empty($dir)) {
             return new WP_Error('invalid_directory', 'Invalid directory specified.', ['status' => 404]);
         }

@@ -8,7 +8,7 @@ Create beautiful, auto-optimizing masonry galleries on your WordPress website wi
 * Automatic preview and thumbail generation for better performance while keeping the originals downloadable
 
 > [!WARNING]
-> This plugin is currently in development and not yet available on the WordPress Plugin Directory. You can still use it by following the [development instructions](#development).
+> This plugin is currently in development and not yet available on the WordPress Plugin Directory. You can still try it out by following the [development instructions](#development).
 
 ## Requirements
 

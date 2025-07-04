@@ -15,18 +15,43 @@ const configMobile = {
     gap: 16,
 };
 
-const configBreakpoint = 868;
+const configBreakpoint = isInPreview ? 1200 : 868;
 
-let config = innerWidth < configBreakpoint ? configMobile : configDesktop;
+let currentConfig = innerWidth < configBreakpoint ? configMobile : configDesktop;
 
-// If the breakpoint is crossed, reload the page
-window.addEventListener("resize", () => {
-    if (innerWidth < configBreakpoint && config !== configMobile) {
-        window.location.reload();
-    } else if (innerWidth >= configBreakpoint && config !== configDesktop) {
-        window.location.reload();
+function updateGalleryLayout(framez, config) {
+    const id = framez.getAttribute("id");
+    let styleTag = document.querySelector(`#style-framez-${id}`);
+    if (!styleTag) {
+        styleTag = document.createElement("style");
+        styleTag.id = `style-framez-${id}`;
+        document.head.appendChild(styleTag);
     }
-});
+    styleTag.innerHTML = `
+        #${id} .framez-item {
+            width: ${config.itemWidth}px;
+            margin-bottom: ${config.gap}px;
+        }
+    `;
+    // Update Masonry options and relayout
+    if (framez.msnry) {
+        framez.msnry.options.columnWidth = config.itemWidth;
+        framez.msnry.options.gutter = config.gap;
+        framez.msnry.layout();
+    }
+}
+
+function updateConfigAndLayout() {
+    const newConfig = innerWidth < configBreakpoint ? configMobile : configDesktop;
+    if (currentConfig !== newConfig) {
+        currentConfig = newConfig;
+        document.querySelectorAll(".framez").forEach((framez) => {
+            updateGalleryLayout(framez, currentConfig);
+        });
+    }
+}
+
+window.addEventListener("resize", updateConfigAndLayout);
 
 const initFrameZ = (framez) => {
     const id = framez.getAttribute("id");
@@ -38,8 +63,8 @@ const initFrameZ = (framez) => {
     const styles = document.createElement("style");
     styles.innerHTML = `
         #${id} .framez-item {
-            width: ${config.itemWidth}px;
-            margin-bottom: ${config.gap}px;
+            width: ${currentConfig.itemWidth}px;
+            margin-bottom: ${currentConfig.gap}px;
         }
     `;
     document.head.appendChild(styles);
@@ -49,10 +74,13 @@ const initFrameZ = (framez) => {
     // Initialize masonry for the gallery
     const msnry = new Masonry(framez, {
         itemSelector: ".framez-item",
-        columnWidth: config.itemWidth,
-        gutter: config.gap,
+        columnWidth: currentConfig.itemWidth,
+        gutter: currentConfig.gap,
         fitWidth: true,
     });
+    framez.msnry = msnry;
+
+    updateGalleryLayout(framez, currentConfig);
 
     // Initialize infinite scroll for the gallery
     let isEmpty = false;

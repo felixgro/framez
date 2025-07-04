@@ -5,7 +5,7 @@ use FrameZ\Utils\View;
 <div 
     id="<?= esc_attr(uniqid('framez-')); ?>"
     class="framez"
-    data-directory="<?= esc_attr($directory); ?>" 
+    data-gallery="<?= esc_attr($gallery); ?>" 
     data-loadmore="<?= esc_attr($loadmore ?? false); ?>"
 >
 

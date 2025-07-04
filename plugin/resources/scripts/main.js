@@ -40,7 +40,7 @@ const initFrameZ = (framez) => {
     `;
     document.head.appendChild(styles);
 
-    const directory = framez.getAttribute("data-directory");
+    const gallery = framez.getAttribute("data-gallery");
 
     // Initialize masonry for the gallery
     const msnry = new Masonry(framez, {
@@ -62,8 +62,8 @@ const initFrameZ = (framez) => {
             return (
                 "/wp-json/framez/v1/images?page=" +
                 pageNumber +
-                "&directory=" +
-                directory
+                "&gallery=" +
+                gallery
             );
         },
         // append: ".framez-item",

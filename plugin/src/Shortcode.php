@@ -33,7 +33,7 @@ class Shortcode
         // Render the gallery grid view
         $output = View::render('gallery', [
             'images' => $paginationData['images'],
-            'directory' => $attributes['directory'],
+            'gallery' => $attributes['gallery'],
             'loadmore' => $attributes['loadmore'],
         ]);
 

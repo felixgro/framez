@@ -10,10 +10,10 @@ class FileController
     // /wp-json/framez/v1/images?page=X&perPage=X&directory=demo&raw=true
     public static function handleRequest()
     {
-        $directoryKey = $_GET['directory'] ?? 'demo';
+        $galleryKey = $_GET['gallery'] ?? 'demo';
 
         $plugin = Plugin::getInstance();
-        $dir = $plugin->getGallery($directoryKey);
+        $dir = $plugin->getGallery($galleryKey);
         if (empty($dir)) {
             return new WP_Error('invalid_directory', 'Invalid directory specified.', ['status' => 404]);
         }
@@ -38,7 +38,7 @@ class FileController
 
         $output = '';
         foreach ($paginationRes['images'] as $image) {
-            $output .= View::render('framez-item', [
+            $output .= View::render('gallery-item', [
                 'image' => $image,
             ]);
         }

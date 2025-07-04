@@ -46,7 +46,8 @@ Now, you can render an image gallery using the `[framez]` shortcode with the reg
 
 ## Roadmap
 * [ ] Add support for custom storage locations (custom server directory)
-* [ ] Add settings pages for configuring the plugin in the dashboard 
+* [X] Add settings pages for configuring the plugin in the dashboard 
+* [X] Add Custom Post Type (CPT) for managing galleries with metadata and interactive gallery preview
 * [ ] Add support for custom image sizes
 
 ## Development

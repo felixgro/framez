@@ -3,6 +3,8 @@ import PhotoSwipeLightbox from "photoswipe/lightbox";
 import InfiniteScroll from "infinite-scroll";
 import "photoswipe/style.css";
 
+const isInPreview = !!document.querySelector("#framez_gallery_preview");
+
 const configDesktop = {
     itemWidth: 250,
     gap: 32,
@@ -28,8 +30,10 @@ window.addEventListener("resize", () => {
 
 const initFrameZ = (framez) => {
     const id = framez.getAttribute("id");
-    const loadMore = framez.getAttribute("data-loadmore") != "false" && framez.getAttribute("data-loadmore") != "0";
-    
+    const loadMore =
+        framez.getAttribute("data-loadmore") != "false" &&
+        framez.getAttribute("data-loadmore") != "0";
+
     // Prepare styles for the gallery items
     const styles = document.createElement("style");
     styles.innerHTML = `
@@ -144,4 +148,15 @@ const initFrameZ = (framez) => {
 };
 
 const galleries = document.querySelectorAll(".framez");
-galleries.forEach((framez) => initFrameZ(framez));
+if (isInPreview) {
+    setTimeout(() => {
+        galleries.forEach((framez) => {
+            initFrameZ(framez);
+            setTimeout(() => {
+                framez.style.opacity = "1";
+            }, 100);
+        });
+    }, 260);
+} else {
+    galleries.forEach((framez) => initFrameZ(framez));
+}

@@ -5,6 +5,18 @@
 
 .framez-item {
     display: block;
+    line-height: 1;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+    &:focus-visible {
+      outline: 2px solid #5a8361;
+      outline-offset: 2px;
+    }
 }
 
 .pswp__button {
@@ -14,7 +26,7 @@
     opacity: .1 !important;
   }
   &:hover:not([disabled]) {
-    background-color: #5a8361 !important;
+    background-color: #3e3e3e !important;
     opacity: 1 !important;
   }
 }
@@ -40,3 +52,5 @@
     color: #B59F87 !important;
   }
 }
+
+

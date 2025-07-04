@@ -20,7 +20,7 @@ class Shortcode
         $plugin = Plugin::getInstance();
         $dir = $plugin->getGallery($attributes['gallery']);
         if (empty($dir)) {
-            return '<div class="framez-error">Invalid directory specified.</div>';
+            return '<p class="framez-error empty">Invalid directory specified.</p>';
         }
 
         $fileDirectory = $dir['path'];
@@ -30,8 +30,18 @@ class Shortcode
         $paginator = new FilePaginator($fileDirectory, $fileDirectoryUrl, (int) $attributes['perpage']);
         $paginationData = $paginator->paginate((int) $attributes['startpage']);
 
+        if (is_admin()) {
+            // If in admin area, render the gallery preview
+            $output = View::render('preview-header', [
+                'gallery' => $attributes['gallery'],
+                'images' => $paginationData['images'],
+            ]);
+        } else {
+            $output = "";
+        }
+
         // Render the gallery grid view
-        $output = View::render('gallery', [
+        $output .= View::render('gallery', [
             'images' => $paginationData['images'],
             'gallery' => $attributes['gallery'],
             'loadmore' => $attributes['loadmore'],

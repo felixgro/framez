@@ -2,6 +2,7 @@
 
 namespace FrameZ;
 
+use FrameZ\Models\Gallery;
 use FrameZ\Utils\Path;
 use FrameZ\Utils\Vite;
 
@@ -71,12 +72,26 @@ class Plugin
         add_action('wp_enqueue_scripts', function () {
             global $post;
 
-            if (!has_shortcode($post->post_content, 'framez'))
+            if (empty($post) || !has_shortcode($post->post_content, 'framez'))
                 return;
 
             Vite::enqueueMainModule();
             Vite::enqueueScript('framez', Vite::asset('resources/scripts/main.js'));
             Vite::enqueueStyle('framez', Vite::asset('resources/styles/main.scss'));
+        });
+
+        // Enqueue backend styles
+        add_action('admin_enqueue_scripts', function () {
+            global $post;
+
+            if (empty($post) || !is_admin() || $post->post_type !== 'framez-gallery') 
+                return;
+
+            Vite::enqueueMainModule();
+            Vite::enqueueStyle('framez-backend', Vite::asset('resources/styles/admin.scss'));
+            Vite::enqueueStyle('framez-styles', Vite::asset('resources/styles/main.scss'));
+            Vite::enqueueScript('framez-script', Vite::asset('resources/scripts/main.js'));
+            Vite::enqueueScript('framez-backend', Vite::asset('resources/scripts/admin.js'));
         });
     }
 
@@ -86,9 +101,22 @@ class Plugin
      */
     public function getGallery(string $key)
     {
+
+        if (!isset($this->galleries[$key])) {
+            // Try to find the gallery by key in the db
+            $gallery = Gallery::getByKey($key);
+            if (!empty($gallery)) {
+                $this->galleries[$key] = [
+                    'path' => $gallery['directory_path'],
+                    'url' => $gallery['directory_url'],
+                ];
+            }
+        }
+
         if (!isset($this->galleries[$key])) {
             return null;
         }
+
         return $this->galleries[$key];
     }
 }

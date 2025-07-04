@@ -10,7 +10,7 @@ export default defineConfig(() => ({
         manifest: true,
         outDir: "build",
         assetsDir: "assets",
-        sourcemap: false
+        sourcemap: true
     },
     server: {
         port: 3000,
@@ -23,7 +23,12 @@ export default defineConfig(() => ({
         laravel({
             publicDirectory: "build",
             refresh: ["*/**.php"],
-            input: ["resources/scripts/main.js", "resources/styles/main.scss"],
+            input: [
+                "resources/scripts/main.js",
+                "resources/styles/main.scss",
+                "resources/styles/admin.scss",
+                'resources/scripts/admin.js',
+            ],
         }),
     ],
     resolve: {

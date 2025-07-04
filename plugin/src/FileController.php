@@ -7,7 +7,7 @@ use WP_Error;
 
 class FileController
 {
-    // /wp-json/framez/v1/images?page=X&perPage=X&directory=demo&raw=true
+    // /wp-json/framez/v1/images?page=X&perPage=X&gallery=demo&raw=true
     public static function handleRequest()
     {
         $galleryKey = $_GET['gallery'] ?? 'demo';

@@ -141,8 +141,6 @@ const initFrameZ = (framez) => {
         }
         msnry.appended(items);
     });
-
-    console.log("FrameZ main.js loaded");
 };
 
 const galleries = document.querySelectorAll(".framez");

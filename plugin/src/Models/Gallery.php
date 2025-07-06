@@ -53,7 +53,7 @@ class Gallery
         // Genmerate the unique key from the title if not set
         add_action('save_post_framez-gallery', function ($postId) {
             // Check if the post is being updated
-            if (get_post_type($postId) !== 'framez-gallery') {
+            if (!array_key_exists('framez', $_POST) || get_post_type($postId) !== 'framez-gallery') {
                 return;
             }
 

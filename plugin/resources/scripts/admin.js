@@ -7,8 +7,10 @@ let selectedImages = [];
 
 // read the hidden input field and parse the JSON
 if (hiddenInput) {
+    /*
     selectedImages = JSON.parse(hiddenInput.value) || [];
     selectImages(selectedImages);
+    */
 }
 
 const captureGalleryClicks = (gallery) => {

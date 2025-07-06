@@ -37,4 +37,9 @@ class Path
     public static function fileName(string $filePath): string {
         return basename($filePath);
     }
+
+    public static function abspath(): string {
+        $absPath = str_replace('/', DIRECTORY_SEPARATOR, ABSPATH);
+        return rtrim($absPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+    }
 }

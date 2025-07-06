@@ -2,6 +2,9 @@
 
 namespace FrameZ\Models;
 
+
+use FrameZ\Utils\Path;
+
 class Gallery
 {
     /**
@@ -119,12 +122,14 @@ class Gallery
                 'type' => 'text',
                 'default' => '',
                 'required' => 0,
+                'prefix' => fn() => Path::abspath(),
                 'description' => __('Directory path on the server containing the images.', 'framez'),
             ],
             'directory_url' => [
                 'label' => __('Directory URL', 'framez'),
                 'type' => 'text',
                 'default' => '',
+                'prefix' => fn() => site_url() . '/',
                 'required' => 0,
                 'description' => __('URL to the directory containing the images.', 'framez'),
             ],
@@ -287,10 +292,14 @@ class Gallery
     public function renderMetaBoxPreview($post)
     {
         $type = get_post_meta($post->ID, 'framez[type]', true);
-        if ($type == 'directory') {
+        $dir = get_post_meta($post->ID, 'framez[directory_path]', true);
+        $dirUrl = get_post_meta($post->ID, 'framez[directory_url]', true);
+
+        if ($type == 'directory' && !empty($dir) && !empty($dirUrl)) {
             echo do_shortcode("[framez gallery='" . esc_attr(get_post_meta($post->ID, 'framez[key]', true)) . "']");
             return;
         }
+
         // Render the preview content
         echo '<div class="gallery-preview">';
         echo '<p style="margin-bottom:0;" class="empty">' . __('No Preview available', 'framez') . '</p>';
@@ -334,18 +343,24 @@ class Gallery
         $fieldId = str_replace('framez[', 'framez_', $fieldKey);
         $fieldId = str_replace(']', '', $fieldId);
 
+        $fieldPrefix = '';
+        if (array_key_exists('prefix', $field) && !empty($field['prefix'])) {
+            $fieldPrefixValue = is_callable($field['prefix']) ? call_user_func($field['prefix']) : $field['prefix'];
+            $fieldPrefix = '<span class="framez-prefix">' . esc_html($fieldPrefixValue) . '</span>';
+        }
+
         return sprintf(
             '<label for="%s">%s</label>
             <div class="framez-input">
-            <input type="text" id="%s" name="%s" value="%s" class="regular-text" />
-            %s
+                %s <input type="text" id="%s" name="%s" value="%s" class="regular-text" />
             </div>',
             esc_attr($fieldId),
             esc_html($field['label']) . ($required ? ' <span class="required">*</span>' : ''),
+            $fieldPrefix,
             esc_attr($fieldId),
             esc_attr($fieldKey),
             esc_attr($value),
-            $description
+            // $description
         );
     }
 

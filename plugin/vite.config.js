@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 
-const DEV_ORIGIN = "http://gum.test";
+const DEV_ORIGIN = "http://wp.test";
 
 export default defineConfig(() => ({
     base: "",

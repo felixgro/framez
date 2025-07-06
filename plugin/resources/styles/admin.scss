@@ -17,6 +17,26 @@
         grid-template-columns: 150px 1fr;
         gap: 1rem;
 
+        .framez-input:has(.framez-prefix) {
+            display: grid;
+            align-items: stretch;
+            grid-template-columns: auto 1fr;
+            .framez-prefix {
+                padding: 0.2rem 0.5rem;
+                border: 1px solid #ccc;
+                border-right: 0;
+                display: flex;
+                align-items: center;
+                background-color: #f7f7f7;
+            }
+            input {
+                margin-left: 0;
+            }
+            border-right: 0;
+        }
+
+
+
         input,
         select {
             width: 100%;
